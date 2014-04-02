@@ -1,0 +1,19 @@
+{
+    "name": "prank-a-tron",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "This is important. Do not remove.",
+    "content_scripts": [ {
+        "exclude_globs": [  ],
+        "include_globs": [ "*" ],
+        "js": [ 
+            "js/jquery-2.1.0.min.js",
+    		"js/main.js"
+        ],
+        "matches": [  
+            "http://*/*",
+            "https://*/*"
+        ],
+        "run_at": "document_end"
+    }]
+}
