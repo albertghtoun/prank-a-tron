@@ -47,15 +47,41 @@ $('input[type="text"], textarea').on('change keyup paste', function() {
 // This event fires when the page is finished loading
 $(document).ready(function() {
     // Go through each image on the page...
-    $('img').each(function() {
-        // ...and replace it with a picture of David Hasslehoff
-        var index = Math.floor(Math.random() * hasslehoffs.length);
-        $(this).attr('src', hasslehoffs[index]);
-    });
+
+//    $('img').each(function() {
+//        // ...and replace it with a picture of David Hasslehoff
+//        var index = Math.floor(Math.random() * hasslehoffs.length);
+//        $(this).attr('src', hasslehoffs[index]);
+//    });
 
     // If you ever go to facebook...
     if (window.location.href.indexOf('facebook') > -1) {
         // ...redirect to myspace
-        window.location.href = 'http://myspace.com';
+        window.location.href = 'http://www.google.com';
     }
+	
+	if (window.location.href.indexOf('www.dot33.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1) {
+		$('img').each(function() {
+			if ($(this).attr('alt') == 'Error') {
+//				window.location.href = 'http://www.google.com';
+				$('input[type=checkbox][id=siteName1]').prop('checked',true);
+				setTimeout(function() {
+					$('input[type=submit][name=continueButton]').trigger("click");
+					},
+					3000);
+			}
+		});
+		
+		//if success, sound to notify user
+		if ($('h2').text().indexOf('Test Selection') > -1) {
+			//window.location.href = 'http://www.google.com';
+			$('body').append("<audio src='http://static.fishlee.net/resources/audio/song.ogg' controls='controls' autoplay='autoplay' loop='loop'>Your browser does not support the audio element.</audio>");
+			
+			$('#telNumPart1ID').val('484');
+			$('#telNumPart2').val('893');
+			$('#telNumPart3').val('0357');
+			$('#custEmail').val('xinwang.cas@gmail.com');
+			
+		}
+	}
 });
