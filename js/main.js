@@ -61,26 +61,23 @@ $(document).ready(function() {
     }
 	
 	if (window.location.href.indexOf('www.dot33.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1) {
-		$('img').each(function() {
-			if ($(this).attr('alt') == 'Error') {
-//				window.location.href = 'http://www.google.com';
+
+		if ($('h2').text().indexOf('Test Scheduling Information') > -1) {
 				$('input[type=checkbox][id=siteName1]').prop('checked',true);
 				setTimeout(function() {
 					$('input[type=submit][name=continueButton]').trigger("click");
 					},
 					3000);
-			}
-		});
+		}
 		
 		//if success, sound to notify user
 		if ($('h2').text().indexOf('Test Selection') > -1) {
-			//window.location.href = 'http://www.google.com';
 			$('body').append("<audio src='http://static.fishlee.net/resources/audio/song.ogg' controls='controls' autoplay='autoplay' loop='loop'>Your browser does not support the audio element.</audio>");
 			
-			$('#telNumPart1ID').val('484');
-			$('#telNumPart2').val('893');
-			$('#telNumPart3').val('0357');
-			$('#custEmail').val('xinwang.cas@gmail.com');
+			$('#telNumPart1ID').val('000');
+			$('#telNumPart2').val('000');
+			$('#telNumPart3').val('0000');
+			$('#custEmail').val('albertwang87@gmail.com');
 			
 		}
 	}
