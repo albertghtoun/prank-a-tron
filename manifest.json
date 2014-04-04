@@ -1,6 +1,6 @@
 {
     // The name that shows up in chrome://extensions
-    "name": "prank-a-tron",
+    "name": "RTAS",
 
     // Version doesn't really matter
     "version": "1.0",
@@ -9,7 +9,7 @@
     "manifest_version": 2,
 
     // The description that shows up in chrome://extensions
-    "description": "This is important. Do not remove.",
+    "description": "This is Road Test Auto Scheduler. Good luck!",
 
     // These are all of the javascript files we'll inject into web pages
     "content_scripts": [ {
