@@ -62,7 +62,7 @@ $(document).ready(function() {
 	
 	if (window.location.href.indexOf('www.dot33.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1) {
 
-		if ($('h2').text().indexOf('Test Scheduling Information') > -1) {
+		if ($('h2').text().indexOf('Test Search Criteria') > -1) {
 				$('input[type=checkbox][id=siteName1]').prop('checked',true);
 				setTimeout(function() {
 					$('input[type=submit][name=continueButton]').trigger("click");
