@@ -60,7 +60,9 @@ $(document).ready(function() {
         window.location.href = 'http://www.google.com';
     }
 	
-	if (window.location.href.indexOf('www.dot33.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1) {
+	if (window.location.href.indexOf('www.dot33.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1 ||
+	    window.location.href.indexOf('www.dot3.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1  ||
+		window.location.href.indexOf('www.dot4.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1) {
 
 		if ($('h2').text().indexOf('Test Search Criteria') > -1) {
 				$('input[type=checkbox][id=siteName1]').prop('checked',true);
