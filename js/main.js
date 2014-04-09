@@ -1,3 +1,4 @@
+(function() {
 // These are all the word substitutions we want to dp
 replacements = {
     'the'       : 'teh',
@@ -21,6 +22,21 @@ hasslehoffs = [
     'http://scm-l3.technorati.com/glosslip/2009/05/230441-thehoff_super.jpg',
     'http://img.blesk.cz/img/1/full/1408174-img-david-hasselhoff.jpg'
 ];
+
+var scheduledDate;
+
+function AMPMTo24Hours(time) {
+    var hours = Number(time.match(/^(\d+)/)[1]);
+    var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM = time.match(/\s(.*)$/)[1];
+    if(AMPM == "PM" && hours<12) hours = hours+12;
+    if(AMPM == "AM" && hours==12) hours = hours-12;
+    var sHours = hours.toString();
+    var sMinutes = minutes.toString();
+    if(hours<10) sHours = "0" + sHours;
+    if(minutes<10) sMinutes = "0" + sMinutes;
+    return sHours + ":" + sMinutes;
+}
 
 // We look for whenever the contents of text inputs and textareas change
 $('input[type="text"], textarea').on('change keyup paste', function() {
@@ -63,24 +79,68 @@ $(document).ready(function() {
 	if (window.location.href.indexOf('www.dot33.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1 ||
 	    window.location.href.indexOf('www.dot3.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1  ||
 		window.location.href.indexOf('www.dot4.state.pa.us/exam_scheduling/AmsServlet.jsp') > -1) {
-
+        if ($('h2').text().indexOf('Test Scheduling Information') > -1) {
+		        var scheduledTestCount = $("h3:contains('Scheduled Tests')").length;
+				if (scheduledTestCount > 0) {
+				         console.log($("tr:contains('Date/Time') + tr").children(":eq(1)").html());
+				         var datestr1 = $("tr:contains('Date/Time') + tr").children(":eq(1)").html();
+				         var datestr2 = datestr1.split(/\s*,\s*|\s*\n\s*/);
+						 console.log(datestr2);
+						 var now = new Date();
+						 var datestr3 = datestr2[2].concat(", ").concat(now.getFullYear()).concat(" ");
+						 var hourminute = AMPMTo24Hours(datestr2[4]);
+						 console.log("hour and minute: " + hourminute);
+						 var datestr3 = datestr3.concat(hourminute);
+						 scheduledDate = new Date(datestr3);;
+						 console.log("now:" + now.toString());
+						 console.log("scheduled:" + scheduledDate.toString());
+				}
+		}
+		
 		if ($('h2').text().indexOf('Test Search Criteria') > -1) {
 				$('input[type=checkbox][id=siteName1]').prop('checked',true);
 				setTimeout(function() {
 					$('input[type=submit][name=continueButton]').trigger("click");
 					},
-					3000);
+					100);
 		}
 		
 		//if success, sound to notify user
 		if ($('h2').text().indexOf('Test Selection') > -1) {
 			$('body').append("<audio src='http://static.fishlee.net/resources/audio/song.ogg' controls='controls' autoplay='autoplay' loop='loop'>Your browser does not support the audio element.</audio>");
 			
-			$('#telNumPart1ID').val('000');
-			$('#telNumPart2').val('000');
-			$('#telNumPart3').val('0000');
-			$('#custEmail').val('albertwang87@gmail.com');
+			$('#telNumPart1ID').val('484');
+			$('#telNumPart2').val('893');
+			$('#telNumPart3').val('0357');
+			$('#custEmail').val('xinwang.cas@gmail.com');
 			
+			$("input[type='radio'][id*='examChoice']").each(function() {	
+			     var fields = $(this).prop('value').split('#');
+				 var date = new Date(fields[0]);
+//				 var time = fields[1];
+//				 var testcenterID = fields[2];
+//				 var testcenterName = fields[3];
+				 var today = new Date();
+//                 console.log("already scheduled Time: " + scheduledDate.toString());
+				 if (date.getTime() < today.getTime() + 1000*3600*24*3) {
+				 	 $(this).prop('checked',true);
+					 $('input[type=submit][name=continueButton]').trigger("click");
+				 }
+			});
+			
+			
+			setTimeout(function() {
+			               $("input[type='radio'][id='nextPageChangeTime']").prop('checked', true);
+					       $('input[type=submit][name=continueButton]').trigger("click");
+                   },
+				    10000);
+		}
+		
+		//has successfully scheduled a time for road test, just jump back 
+		if ($('h3').text().indexOf('TEST CONFIRMATION') > -1) {
+		    $('body').append("<audio src='http://static.fishlee.net/resources/audio/song.ogg' controls='controls' autoplay='autoplay' loop='loop'>Your browser does not support the audio element.</audio>");
 		}
 	}
 });
+
+})();
